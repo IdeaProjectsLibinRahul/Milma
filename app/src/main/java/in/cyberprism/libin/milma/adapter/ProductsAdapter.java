@@ -39,8 +39,7 @@ public class ProductsAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-        String key = heading.get(i);
-        return products.get(key).size();
+        return 1;
     }
 
     @Override
@@ -78,14 +77,15 @@ public class ProductsAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_group_header, null);
         }
 
-        TextView textViewHeading = (TextView) convertView;
+        TextView textViewHeading = (TextView) convertView.findViewById(R.id.textViewListHeader);
         textViewHeading.setText(headerTitle);
-        return textViewHeading;
+        return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean b, View convertView, ViewGroup viewGroup) {
 
+        final String key = (String) getGroup(groupPosition);
         final List<Product> childList = (List<Product>) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
@@ -95,8 +95,8 @@ public class ProductsAdapter extends BaseExpandableListAdapter {
         }
 
         RecyclerView recyclerView = (RecyclerView) convertView;
-        ProductRecyclerAdaper adaper = new ProductRecyclerAdaper(childList);
-        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 3);
+        ProductRecyclerAdaper adaper = new ProductRecyclerAdaper(key, childList);
+        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adaper);
 

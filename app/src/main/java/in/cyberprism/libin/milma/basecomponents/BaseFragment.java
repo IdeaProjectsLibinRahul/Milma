@@ -33,6 +33,6 @@ public abstract class BaseFragment extends Fragment {
     protected void changeMainView(Fragment fragment) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, fragment).commit();
+        transaction.replace(R.id.container, fragment).addToBackStack(null).commit();
     }
 }

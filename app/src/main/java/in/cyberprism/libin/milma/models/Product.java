@@ -1,15 +1,18 @@
 package in.cyberprism.libin.milma.models;
 
+import java.io.Serializable;
+
 /**
  * Created by libin on 28/02/17.
  */
 
-public class Product {
+public class Product implements Serializable {
     private int itemCode;
     private String category;
     private String name;
     private String image;
     private String price;
+    private boolean selected;
 
     public int getItemCode() {
         return itemCode;
@@ -49,5 +52,13 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
