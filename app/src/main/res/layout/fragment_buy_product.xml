@@ -11,6 +11,7 @@
         android:layout_weight="1" />
 
     <Button
+        android:id="@+id/buttonBuyNow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/buy_now"

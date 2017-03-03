@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/review_item_container"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/logo" />
+
+    <TextView
+        android:id="@+id/textViewItemCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/review_items_margin_left"
+        android:layout_marginStart="@dimen/review_items_margin_left"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/imageViewIcon"
+        android:layout_toRightOf="@id/imageViewIcon"
+        android:text="@string/item_code" />
+
+    <TextView
+        android:id="@+id/textViewItemTitle"
+        style="@style/ReviewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewItemCode"
+        android:layout_marginLeft="@dimen/review_items_margin_left"
+        android:layout_marginStart="@dimen/review_items_margin_left"
+        android:layout_marginTop="@dimen/review_line_space"
+        android:layout_toEndOf="@id/imageViewIcon"
+        android:layout_toRightOf="@id/imageViewIcon"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Item Name" />
+
+    <TextView
+        android:id="@+id/textViewItemCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewItemTitle"
+        android:layout_marginLeft="@dimen/review_items_margin_left"
+        android:layout_marginStart="@dimen/review_items_margin_left"
+        android:layout_marginTop="@dimen/review_line_space"
+        android:layout_toEndOf="@id/imageViewIcon"
+        android:layout_toRightOf="@id/imageViewIcon"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Item Category" />
+
+    <TextView
+        android:id="@+id/textViewItemPriceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewItemCategory"
+        android:layout_marginLeft="@dimen/review_items_margin_left"
+        android:layout_marginStart="@dimen/review_items_margin_left"
+        android:layout_marginTop="@dimen/review_line_space"
+        android:layout_toEndOf="@id/imageViewIcon"
+        android:layout_toRightOf="@id/imageViewIcon"
+        android:text="Price" />
+
+    <TextView
+        android:id="@+id/textViewItemPrice"
+        style="@style/ReviewPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewItemCategory"
+        android:layout_marginLeft="@dimen/review_items_margin_left"
+        android:layout_marginStart="@dimen/review_items_margin_left"
+        android:layout_marginTop="@dimen/review_line_space"
+        android:layout_toEndOf="@id/textViewItemPriceLabel"
+        android:layout_toRightOf="@id/textViewItemPriceLabel"
+        android:gravity="right"
+        android:text="Price" />
+
+</RelativeLayout>

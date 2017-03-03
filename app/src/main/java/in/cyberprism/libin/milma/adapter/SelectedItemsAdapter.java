@@ -3,6 +3,8 @@ package in.cyberprism.libin.milma.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +41,7 @@ public class SelectedItemsAdapter extends RecyclerView.Adapter<SelectedItemsAdap
 
     @Override
     public void onBindViewHolder(SelectedItemsViewHolder holder, int position) {
-        Product product = products.get(position);
+        final Product product = products.get(position);
         holder.selectedItemTitle.setText(product.getName());
         String price = mContext.getString(R.string.selected_price, product.getPrice());
         holder.selectedItemPrice.setText(price);
@@ -53,6 +55,24 @@ public class SelectedItemsAdapter extends RecyclerView.Adapter<SelectedItemsAdap
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        holder.selectedItemQuantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String quantity = editable.toString();
+                product.setQuantity(quantity);
+            }
+        });
     }
 
     @Override

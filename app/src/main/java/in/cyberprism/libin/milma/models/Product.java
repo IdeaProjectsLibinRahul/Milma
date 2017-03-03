@@ -13,6 +13,7 @@ public class Product implements Serializable {
     private String image;
     private String price;
     private boolean selected;
+    private String quantity;
 
     public int getItemCode() {
         return itemCode;
@@ -60,5 +61,13 @@ public class Product implements Serializable {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 }

@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="itemBackground">#66000000</color>
+    <color name="layoutInterBackground">#66bebebe</color>
+    <color name="order_info_background">#363636</color>
 </resources>
