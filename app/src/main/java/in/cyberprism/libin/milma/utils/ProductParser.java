@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import in.cyberprism.libin.milma.models.Product;
+import in.cyberprism.libin.milma.views.models.Product;
 
 /**
  * Created by libin on 27/02/17.

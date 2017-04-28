@@ -1,4 +1,4 @@
-package in.cyberprism.libin.milma.basecomponents;
+package in.cyberprism.libin.milma.views.basecomponents;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;

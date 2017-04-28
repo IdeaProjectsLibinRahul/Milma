@@ -1,4 +1,4 @@
-package in.cyberprism.libin.milma.models;
+package in.cyberprism.libin.milma.views.models;
 
 import java.io.Serializable;
 

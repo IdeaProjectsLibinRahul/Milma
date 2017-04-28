@@ -1,4 +1,4 @@
-package in.cyberprism.libin.milma;
+package in.cyberprism.libin.milma.views;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,9 +16,10 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 
+import in.cyberprism.libin.milma.R;
 import in.cyberprism.libin.milma.events.ItemSelectEvent;
 import in.cyberprism.libin.milma.events.SelectedItemsRequestEvent;
-import in.cyberprism.libin.milma.fragments.HomeFragment;
+import in.cyberprism.libin.milma.views.fragments.HomeFragment;
 
 public class HomeActivity extends AppCompatActivity {
 

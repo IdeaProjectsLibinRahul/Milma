@@ -1,4 +1,4 @@
-package in.cyberprism.libin.milma.fragments;
+package in.cyberprism.libin.milma.views.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,9 +13,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import in.cyberprism.libin.milma.R;
-import in.cyberprism.libin.milma.adapter.SelectedItemsAdapter;
-import in.cyberprism.libin.milma.basecomponents.BaseFragment;
-import in.cyberprism.libin.milma.models.Product;
+import in.cyberprism.libin.milma.views.adapter.SelectedItemsAdapter;
+import in.cyberprism.libin.milma.views.basecomponents.BaseFragment;
+import in.cyberprism.libin.milma.views.models.Product;
 
 /**
  * Created by libin on 01/03/17.

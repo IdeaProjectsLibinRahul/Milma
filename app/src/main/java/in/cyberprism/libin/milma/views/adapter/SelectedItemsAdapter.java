@@ -1,4 +1,4 @@
-package in.cyberprism.libin.milma.adapter;
+package in.cyberprism.libin.milma.views.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import in.cyberprism.libin.milma.R;
-import in.cyberprism.libin.milma.models.Product;
+import in.cyberprism.libin.milma.views.models.Product;
 
 /**
  * Created by libin on 01/03/17.

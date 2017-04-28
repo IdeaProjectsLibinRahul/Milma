@@ -1,4 +1,4 @@
-package in.cyberprism.libin.milma.fragments;
+package in.cyberprism.libin.milma.views.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import in.cyberprism.libin.milma.R;
-import in.cyberprism.libin.milma.basecomponents.BaseFragment;
+import in.cyberprism.libin.milma.views.basecomponents.BaseFragment;
 
 /**
  * Created by libin on 03/03/17.
