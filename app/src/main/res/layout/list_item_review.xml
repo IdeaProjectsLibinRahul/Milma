@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/review_item_container"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="150dp"
     android:padding="5dp">
 
     <ImageView
@@ -81,5 +81,26 @@
         android:layout_toRightOf="@id/textViewItemPriceLabel"
         android:gravity="right"
         android:text="Price" />
+
+    <ImageButton
+        android:id="@+id/buttonItemDelete"
+        style="@style/ReviewButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/textViewItemPrice"
+        android:background="@android:color/holo_red_light"
+        android:src="@mipmap/ic_delete" />
+
+    <ImageButton
+        android:id="@+id/buttonItemEdit"
+        style="@style/ReviewButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewItemPrice"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@id/buttonItemDelete"
+        android:background="@android:color/holo_green_dark"
+        android:src="@mipmap/ic_edit" />
 
 </RelativeLayout>

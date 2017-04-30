@@ -18,7 +18,7 @@ public class LoginResponse extends BaseResponse {
         this.response = response;
     }
 
-    private class Response {
+    public class Response {
         private String name;
         private Constants.Type type;
         private int userId;

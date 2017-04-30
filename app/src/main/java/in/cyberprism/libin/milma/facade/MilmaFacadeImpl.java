@@ -1,11 +1,14 @@
 package in.cyberprism.libin.milma.facade;
 
+import java.util.HashMap;
+import java.util.List;
+
 import in.cyberprism.libin.milma.configurations.Constants;
 import in.cyberprism.libin.milma.service.MilmaService;
 import in.cyberprism.libin.milma.service.MilmaServiceImpl;
 import in.cyberprism.libin.milma.service.handlers.ServiceCallback;
-import in.cyberprism.libin.milma.service.responses.ItemsResponse;
 import in.cyberprism.libin.milma.service.responses.LoginResponse;
+import in.cyberprism.libin.milma.views.models.Product;
 
 /**
  * Created by libin on 27/04/17.
@@ -25,7 +28,7 @@ public class MilmaFacadeImpl implements MilmaFacade {
     }
 
     @Override
-    public void getItems(Constants.GroupBy groupBy, ServiceCallback<ItemsResponse> callback) {
+    public void getItems(Constants.GroupBy groupBy, ServiceCallback<HashMap<String, List<Product>>> callback) {
         service.getItems(groupBy, callback);
     }
 }

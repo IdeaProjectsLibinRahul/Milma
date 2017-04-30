@@ -19,10 +19,12 @@ import java.util.HashMap;
 import in.cyberprism.libin.milma.R;
 import in.cyberprism.libin.milma.events.ItemSelectEvent;
 import in.cyberprism.libin.milma.events.SelectedItemsRequestEvent;
+import in.cyberprism.libin.milma.views.dialogs.QuantityDialog;
 import in.cyberprism.libin.milma.views.fragments.HomeFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
+    public static final String QUANTITY_INPUT = "QUANTITY_INPUT";
     private Toolbar toolbar;
     private TextView textViewSelectedCount;
     private ImageView imageViewNext;
@@ -58,6 +60,12 @@ public class HomeActivity extends AppCompatActivity {
                 textViewSelectedCount.setVisibility(View.GONE);
                 imageViewNext.setVisibility(View.GONE);
             }
+        }
+
+        if (event.needDialog()) {
+            QuantityDialog quantityDialog = new QuantityDialog();
+            quantityDialog.setProduct(event.getProduct());
+            quantityDialog.show(getSupportFragmentManager(), QUANTITY_INPUT);
         }
     }
 

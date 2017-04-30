@@ -8,6 +8,7 @@ public class Item {
     private int itemId;
     private String itemName;
     private String itemImage;
+    private String price;
 
     public int getItemId() {
         return itemId;
@@ -31,6 +32,14 @@ public class Item {
 
     public void setItemImage(String itemImage) {
         this.itemImage = itemImage;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     @Override

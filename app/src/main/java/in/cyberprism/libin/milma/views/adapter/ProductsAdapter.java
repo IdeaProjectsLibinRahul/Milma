@@ -95,7 +95,7 @@ public class ProductsAdapter extends BaseExpandableListAdapter {
         }
 
         RecyclerView recyclerView = (RecyclerView) convertView;
-        ProductRecyclerAdaper adaper = new ProductRecyclerAdaper(key, childList);
+        ProductRecyclerAdapter adaper = new ProductRecyclerAdapter(key, childList);
         GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adaper);

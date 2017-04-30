@@ -1,21 +1,27 @@
 package in.cyberprism.libin.milma.views.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
 import in.cyberprism.libin.milma.R;
+import in.cyberprism.libin.milma.events.EditItemEvent;
 import in.cyberprism.libin.milma.views.models.Product;
 
 /**
@@ -43,7 +49,7 @@ public class ReviewProductAdapter extends RecyclerView.Adapter<ReviewProductAdap
 
     @Override
     public void onBindViewHolder(ReviewProductViewHolder holder, int position) {
-        Product product = products.get(position);
+        final Product product = products.get(position);
         String itemCode = mContext.getString(R.string.item_code, product.getItemCode());
 
         float quantity = 0;
@@ -86,6 +92,37 @@ public class ReviewProductAdapter extends RecyclerView.Adapter<ReviewProductAdap
         if (position % 2 != 0) {
             holder.layoutContainer.setBackgroundResource(R.color.layoutInterBackground);
         }
+
+        holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(mContext)
+                        .setTitle("Remove Item")
+                        .setMessage("Do you really want to remove item from cart.?")
+                        .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                products.remove(product);
+                                notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).create().show();
+            }
+        });
+
+        holder.buttonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditItemEvent event = new EditItemEvent();
+                event.setProduct(product);
+                EventBus.getDefault().post(event);
+            }
+        });
     }
 
     @Override
@@ -101,6 +138,8 @@ public class ReviewProductAdapter extends RecyclerView.Adapter<ReviewProductAdap
         private TextView textViewItemCategory;
         private TextView textViewItemPrice;
         private ImageView imageViewIcon;
+        private ImageButton buttonEdit;
+        private ImageButton buttonDelete;
 
         public ReviewProductViewHolder(View itemView) {
             super(itemView);
@@ -111,6 +150,8 @@ public class ReviewProductAdapter extends RecyclerView.Adapter<ReviewProductAdap
             textViewItemCategory = (TextView) itemView.findViewById(R.id.textViewItemCategory);
             textViewItemPrice = (TextView) itemView.findViewById(R.id.textViewItemPrice);
             imageViewIcon = (ImageView) itemView.findViewById(R.id.imageViewIcon);
+            buttonEdit = (ImageButton) itemView.findViewById(R.id.buttonItemEdit);
+            buttonDelete = (ImageButton) itemView.findViewById(R.id.buttonItemDelete);
         }
     }
 }

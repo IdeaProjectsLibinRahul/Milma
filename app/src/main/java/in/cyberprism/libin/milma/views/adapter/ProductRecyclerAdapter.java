@@ -10,12 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
 import in.cyberprism.libin.milma.R;
+import in.cyberprism.libin.milma.events.DataSetChangeEvent;
 import in.cyberprism.libin.milma.events.ItemSelectEvent;
 import in.cyberprism.libin.milma.views.models.Product;
 
@@ -23,13 +26,13 @@ import in.cyberprism.libin.milma.views.models.Product;
  * Created by libin on 28/02/17.
  */
 
-public class ProductRecyclerAdaper extends RecyclerView.Adapter<ProductRecyclerAdaper.ItemViewHolder> {
+public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecyclerAdapter.ItemViewHolder> {
 
     private String key;
     private List<Product> products;
     private Context mContext;
 
-    public ProductRecyclerAdaper(String key, List<Product> products) {
+    public ProductRecyclerAdapter(String key, List<Product> products) {
         this.key = key;
         this.products = products;
     }
@@ -68,7 +71,7 @@ public class ProductRecyclerAdaper extends RecyclerView.Adapter<ProductRecyclerA
                 product.setSelected(!selected);
                 notifyDataSetChanged();
 
-                publishCount();
+                publishCount(product, true);
             }
         });
     }
@@ -78,7 +81,7 @@ public class ProductRecyclerAdaper extends RecyclerView.Adapter<ProductRecyclerA
         return products.size();
     }
 
-    private void publishCount() {
+    private void publishCount(Product selectedProduct, boolean needDialog) {
         int count = 0;
         for (Product product : products) {
             if (product.isSelected()) {
@@ -88,7 +91,27 @@ public class ProductRecyclerAdaper extends RecyclerView.Adapter<ProductRecyclerA
         ItemSelectEvent event = new ItemSelectEvent();
         event.setKey(key);
         event.setCount(count);
+        event.setProduct(selectedProduct);
+        event.setNeedDialog(needDialog);
         EventBus.getDefault().post(event);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(DataSetChangeEvent event) {
+        notifyDataSetChanged();
+        publishCount(null, false);
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {

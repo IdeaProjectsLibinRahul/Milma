@@ -11,12 +11,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import in.cyberprism.libin.milma.R;
+import in.cyberprism.libin.milma.events.EditDoneEvent;
+import in.cyberprism.libin.milma.events.EditItemEvent;
 import in.cyberprism.libin.milma.views.adapter.ReviewProductAdapter;
 import in.cyberprism.libin.milma.views.basecomponents.BaseFragment;
+import in.cyberprism.libin.milma.views.dialogs.QuantityDialog;
 import in.cyberprism.libin.milma.views.models.Product;
+
+import static in.cyberprism.libin.milma.views.HomeActivity.QUANTITY_INPUT;
 
 /**
  * Created by libin on 03/03/17.
@@ -62,6 +70,13 @@ public class ReviewFragment extends BaseFragment {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             recyclerViewReview.setLayoutManager(layoutManager);
             recyclerViewReview.setAdapter(adapter);
+
+            adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onChanged() {
+                    showTotalPrice();
+                }
+            });
         }
     }
 
@@ -112,5 +127,17 @@ public class ReviewFragment extends BaseFragment {
 
         float priceValue = quantity * price;
         return priceValue;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EditItemEvent event) {
+        QuantityDialog quantityDialog = new QuantityDialog();
+        quantityDialog.setProduct(event.getProduct());
+        quantityDialog.show(getChildFragmentManager(), QUANTITY_INPUT);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EditDoneEvent event) {
+        adapter.notifyDataSetChanged();
     }
 }
