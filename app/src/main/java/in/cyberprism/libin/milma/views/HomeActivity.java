@@ -22,7 +22,7 @@ import in.cyberprism.libin.milma.events.SelectedItemsRequestEvent;
 import in.cyberprism.libin.milma.views.dialogs.QuantityDialog;
 import in.cyberprism.libin.milma.views.fragments.HomeFragment;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements HomeFragment.CountCallback {
 
     public static final String QUANTITY_INPUT = "QUANTITY_INPUT";
     private Toolbar toolbar;
@@ -40,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
         setToolBar();
 
         HomeFragment fragment = new HomeFragment();
+        fragment.setCountCallback(this);
         changeMainView(fragment);
     }
 
@@ -111,5 +112,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void resetCount() {
+        itemCount = new HashMap<>();
     }
 }

@@ -29,6 +29,7 @@ import in.cyberprism.libin.milma.service.responses.base.ServiceError;
 import in.cyberprism.libin.milma.utils.ProductParser;
 import in.cyberprism.libin.milma.views.adapter.ProductsAdapter;
 import in.cyberprism.libin.milma.views.basecomponents.BaseFragment;
+import in.cyberprism.libin.milma.views.dialogs.SortDialog;
 import in.cyberprism.libin.milma.views.models.Product;
 
 import static in.cyberprism.libin.milma.views.fragments.BuyProductFragment.ADDED_PRODUCTS;
@@ -37,14 +38,16 @@ import static in.cyberprism.libin.milma.views.fragments.BuyProductFragment.ADDED
  * Created by libin on 27/02/17.
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements SortDialog.SortCallback {
 
     public static final String SELECTED_PRODUCTS = "SELECTED_PRODUCTS";
+    public static final String SORT_DIALOG = "SORT_DIALOG";
     private final String TAG = getClass().getName();
     private HashMap<String, List<Product>> products;
     private ExpandableListView listViewItems;
     private View view;
     private ProductsAdapter adapter;
+    private CountCallback countCallback;
 
     private MilmaFacade facade;
 
@@ -53,7 +56,10 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         initComponents();
-        requestItems();
+        requestItems(Constants.GroupBy.CATEGORY);
+        if (countCallback != null) {
+            countCallback.resetCount();
+        }
 
         setHasOptionsMenu(true);
         return view;
@@ -63,6 +69,10 @@ public class HomeFragment extends BaseFragment {
     public void onMessageEvent(SelectedItemsRequestEvent event) {
 //        showQuantityView();
         showReviewView();
+    }
+
+    public void setCountCallback(CountCallback countCallback) {
+        this.countCallback = countCallback;
     }
 
     private void showReviewView() {
@@ -127,8 +137,8 @@ public class HomeFragment extends BaseFragment {
         setAdapter();
     }
 
-    private void requestItems() {
-        facade.getItems(Constants.GroupBy.CATEGORY, new ServiceCallback<HashMap<String, List<Product>>>() {
+    private void requestItems(Constants.GroupBy groupBy) {
+        facade.getItems(groupBy, new ServiceCallback<HashMap<String, List<Product>>>() {
             @Override
             public void onResponse(HashMap<String, List<Product>> response) {
                 if (response.size() > 0) {
@@ -163,9 +173,28 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.item_mock) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.item_mock) {
             getData();
+        } else if (itemId == R.id.item_order) {
+            SortDialog sortDialog = new SortDialog();
+            sortDialog.setCallback(this);
+            sortDialog.show(getChildFragmentManager(), SORT_DIALOG);
+        } else if (itemId == R.id.item_history) {
+            HistoryFragment historyFragment = new HistoryFragment();
+            changeMainView(historyFragment);
         }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onUpdate(Constants.GroupBy groupBy) {
+        requestItems(groupBy);
+    }
+
+    public interface CountCallback {
+        void resetCount();
     }
 }

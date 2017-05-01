@@ -7,6 +7,7 @@ package in.cyberprism.libin.milma.network.constants;
 public class ServiceURLs {
     public static final String LOGIN = "/Account/Login";
     public static final String HOME = "/AppData/Request";
+    public static final String ORDER = "/AppData/Order";
 
     private static final String BASE_URL = "http://122.166.96.206/MilmaMobApp/api";
 

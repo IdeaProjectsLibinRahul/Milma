@@ -16,9 +16,12 @@ import in.cyberprism.libin.milma.service.handlers.ServiceCallback;
 import in.cyberprism.libin.milma.service.mappers.ItemResponseMapper;
 import in.cyberprism.libin.milma.service.requests.ItemRequest;
 import in.cyberprism.libin.milma.service.requests.LoginRequest;
+import in.cyberprism.libin.milma.service.requests.OrderRequest;
 import in.cyberprism.libin.milma.service.responses.ItemsResponse;
 import in.cyberprism.libin.milma.service.responses.LoginResponse;
+import in.cyberprism.libin.milma.service.responses.OrderResponse;
 import in.cyberprism.libin.milma.service.responses.base.ServiceError;
+import in.cyberprism.libin.milma.service.responses.order.OrderItem;
 import in.cyberprism.libin.milma.views.models.Product;
 
 /**
@@ -76,6 +79,41 @@ public class MilmaServiceImpl implements MilmaService {
                     HashMap<String, List<Product>> response1 = responseMapper.getResponse(response);
 
                     callback.onResponse(response1);
+                } else {
+                    ServiceError error = new ServiceError();
+                    error.setErrorMessage("Response null");
+
+                    callback.onRequestFail(error);
+                }
+            }
+
+            @Override
+            public void onTimeout() {
+                callback.onRequestTimout();
+            }
+
+            @Override
+            public void onFail(ServiceError error) {
+                callback.onRequestFail(error);
+            }
+        });
+    }
+
+    @Override
+    public void orderItems(List<OrderItem> items, final ServiceCallback<OrderResponse> callback) {
+        User user = Config.getInstance().getUser();
+
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setUserId(user.getUserId());
+        orderRequest.setItems(items);
+
+
+        final NetworkRequest<OrderResponse> request = new NetworkRequestImpl<>(orderRequest, ServiceURLs.HOME, OrderResponse.class);
+        request.request(Request.Method.POST, new NetworkCallback<OrderResponse>() {
+            @Override
+            public void onSuccess(OrderResponse response) {
+                if (response != null) {
+                    callback.onResponse(response);
                 } else {
                     ServiceError error = new ServiceError();
                     error.setErrorMessage("Response null");

@@ -14,11 +14,19 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import in.cyberprism.libin.milma.R;
+import in.cyberprism.libin.milma.configurations.Constants;
 import in.cyberprism.libin.milma.events.EditDoneEvent;
 import in.cyberprism.libin.milma.events.EditItemEvent;
+import in.cyberprism.libin.milma.facade.MilmaFacade;
+import in.cyberprism.libin.milma.facade.MilmaFacadeImpl;
+import in.cyberprism.libin.milma.service.handlers.ServiceCallback;
+import in.cyberprism.libin.milma.service.responses.OrderResponse;
+import in.cyberprism.libin.milma.service.responses.base.ServiceError;
+import in.cyberprism.libin.milma.service.responses.order.OrderItem;
 import in.cyberprism.libin.milma.views.adapter.ReviewProductAdapter;
 import in.cyberprism.libin.milma.views.basecomponents.BaseFragment;
 import in.cyberprism.libin.milma.views.dialogs.QuantityDialog;
@@ -38,6 +46,7 @@ public class ReviewFragment extends BaseFragment {
     private List<Product> products;
     private ReviewProductAdapter adapter;
     private TextView textViewTotalPrice;
+    private MilmaFacade facade;
 
     @Nullable
     @Override
@@ -54,6 +63,7 @@ public class ReviewFragment extends BaseFragment {
     }
 
     private void initComponents() {
+        facade = new MilmaFacadeImpl();
         recyclerViewReview = (RecyclerView) view.findViewById(R.id.recyclerViewReview);
         buttonOrder = (Button) view.findViewById(R.id.buttonOrder);
         textViewTotalPrice = (TextView) view.findViewById(R.id.textViewTotal);
@@ -85,8 +95,38 @@ public class ReviewFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 //                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                OrderInfoFragment fragment = new OrderInfoFragment();
-                changeMainView(fragment);
+
+                List<OrderItem> items = new ArrayList<OrderItem>();
+                for (Product product : products) {
+                    OrderItem item = new OrderItem();
+                    item.setItemId(product.getItemCode());
+                    item.setQuantity(Integer.parseInt(product.getQuantity()));
+
+                    items.add(item);
+                }
+
+                facade.orderItems(items, new ServiceCallback<OrderResponse>() {
+                    @Override
+                    public void onResponse(OrderResponse response) {
+                        OrderInfoFragment fragment = new OrderInfoFragment();
+                        changeMainView(fragment);
+                    }
+
+                    @Override
+                    public void onRequestTimout() {
+                        showMessage("Error", getString(R.string.timeout_message), Constants.MessageType.TIME_OUT);
+                    }
+
+                    @Override
+                    public void onRequestFail(ServiceError error) {
+                        String errorMessage = error.getErrorMessage();
+                        if (errorMessage == null || errorMessage.equals("")) {
+                            errorMessage = getString(R.string.server_error);
+                        }
+                        showMessage("Error", errorMessage, Constants.MessageType.ERROR);
+                    }
+                });
+
             }
         });
     }

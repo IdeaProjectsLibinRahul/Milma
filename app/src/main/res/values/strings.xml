@@ -16,7 +16,9 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="ok">ok</string>
     <string name="server_error">Server unreachable</string>
-    <string name="mock_data">mock_data</string>
+    <string name="mock_data">mock data</string>
     <string name="add">Add</string>
     <string name="quantity_message">Please enter quantity</string>
+    <string name="order_history">Order History</string>
+    <string name="review_text">Review Your Order</string>
 </resources>

@@ -8,6 +8,8 @@ import in.cyberprism.libin.milma.service.MilmaService;
 import in.cyberprism.libin.milma.service.MilmaServiceImpl;
 import in.cyberprism.libin.milma.service.handlers.ServiceCallback;
 import in.cyberprism.libin.milma.service.responses.LoginResponse;
+import in.cyberprism.libin.milma.service.responses.OrderResponse;
+import in.cyberprism.libin.milma.service.responses.order.OrderItem;
 import in.cyberprism.libin.milma.views.models.Product;
 
 /**
@@ -30,5 +32,10 @@ public class MilmaFacadeImpl implements MilmaFacade {
     @Override
     public void getItems(Constants.GroupBy groupBy, ServiceCallback<HashMap<String, List<Product>>> callback) {
         service.getItems(groupBy, callback);
+    }
+
+    @Override
+    public void orderItems(List<OrderItem> items, ServiceCallback<OrderResponse> callback) {
+        service.orderItems(items, callback);
     }
 }
