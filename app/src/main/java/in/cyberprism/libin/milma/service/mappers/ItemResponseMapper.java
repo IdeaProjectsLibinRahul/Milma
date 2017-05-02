@@ -18,21 +18,23 @@ public class ItemResponseMapper implements ResponseMapper<ItemsResponse, HashMap
     @Override
     public HashMap<String, List<Product>> getResponse(ItemsResponse item) {
         HashMap<String, List<Product>> map = new HashMap<>();
-        for (Category category : item.getCategories()) {
-            String categName = category.getCategoryName();
-            List<Product> products = new ArrayList<>();
+        if (item != null && item.getCategories() != null) {
+            for (Category category : item.getCategories()) {
+                String categName = category.getCategoryName();
+                List<Product> products = new ArrayList<>();
 
-            for (Item item1 : category.getItems()) {
-                Product product = new Product();
-                product.setCategory(categName);
-                product.setName(item1.getItemName());
-                product.setItemCode(item1.getItemId());
-                product.setImage(item1.getItemImage());
-                product.setPrice(item1.getPrice());
+                for (Item item1 : category.getItems()) {
+                    Product product = new Product();
+                    product.setCategory(categName);
+                    product.setName(item1.getItemName());
+                    product.setItemCode(item1.getItemId());
+                    product.setImage(item1.getItemImage());
+                    product.setPrice(item1.getPrice());
 
-                products.add(product);
+                    products.add(product);
+                }
+                map.put(categName, products);
             }
-            map.put(categName, products);
         }
         return map;
     }

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -48,6 +49,7 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
     private View view;
     private ProductsAdapter adapter;
     private CountCallback countCallback;
+    private TextView errorText;
 
     private MilmaFacade facade;
 
@@ -110,6 +112,7 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
 
     private void initComponents() {
         facade = new MilmaFacadeImpl();
+        errorText = (TextView) view.findViewById(R.id.errorText);
         listViewItems = (ExpandableListView) view.findViewById(R.id.listViewItems);
 
     }
@@ -142,10 +145,12 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
             @Override
             public void onResponse(HashMap<String, List<Product>> response) {
                 if (response.size() > 0) {
+                    errorText.setVisibility(View.GONE);
                     products = response;
                     setAdapter();
                 } else {
-                    showMessage("Info", "No data", Constants.MessageType.SUCCESS);
+                    showMessage("Info", "No data", Constants.MessageType.ERROR);
+                    errorText.setVisibility(View.VISIBLE);
                 }
             }
 
