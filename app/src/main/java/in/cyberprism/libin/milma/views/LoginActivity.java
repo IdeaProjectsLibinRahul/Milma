@@ -78,13 +78,13 @@ public class LoginActivity extends BaseActivity {
                         }
                         showMessage("Error", errorMessage, Constants.MessageType.ERROR);
 
-                        User user = new User();
-                        user.setName("Libin");
-                        user.setType(Constants.Type.DEALER);
-                        user.setUserId(9);
-                        Config.getInstance().setUser(user);
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intent);
+//                        User user = new User();
+//                        user.setName("Libin");
+//                        user.setType(Constants.Type.DEALER);
+//                        user.setUserId(9);
+//                        Config.getInstance().setUser(user);
+//                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//                        startActivity(intent);
                     }
                 });
 

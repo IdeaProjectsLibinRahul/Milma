@@ -21,6 +21,7 @@
     <string name="quantity_message">Please enter quantity</string>
     <string name="order_history">Order History</string>
     <string name="review_text">Review Your Order</string>
+    <string name="no_data_available">No data available</string>
     <string name="fetch_data_msg">Fetching data</string>
     <string name="please_wait">please wait</string>
 </resources>
