@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.greenrobot.eventbus.EventBus;
 
 import in.cyberprism.libin.milma.R;
@@ -51,6 +53,7 @@ public class QuantityDialog extends BaseDialog {
 
         if (product != null) {
             String quantity = product.getQuantity();
+            Picasso.with(getContext()).load(product.getImage()).placeholder(R.mipmap.no_image).into(imageView);
             if (quantity != null) {
                 editTextQuantity.setText(quantity);
             }

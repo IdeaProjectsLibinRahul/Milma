@@ -1,5 +1,6 @@
 package in.cyberprism.libin.milma.views.basecomponents;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ import in.cyberprism.libin.milma.views.dialogs.InfoDialog;
 public abstract class BaseFragment extends Fragment {
 
     private static final String SUCCESS_DIALOG = "SUCCESS";
+    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -65,5 +67,19 @@ public abstract class BaseFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(SelectedItemsRequestEvent event) {
 
+    }
+
+    protected void showProgress(String title, String message) {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setTitle(title);
+        progressDialog.setMessage(message);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+    }
+
+    protected void hideProgress() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 }

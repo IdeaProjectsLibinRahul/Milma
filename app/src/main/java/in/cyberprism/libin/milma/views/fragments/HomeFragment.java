@@ -138,9 +138,11 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
     }
 
     private void requestItems(Constants.GroupBy groupBy) {
+        showProgress(getString(R.string.fetch_data_msg), getString(R.string.please_wait));
         facade.getItems(groupBy, new ServiceCallback<HashMap<String, List<Product>>>() {
             @Override
             public void onResponse(HashMap<String, List<Product>> response) {
+                hideProgress();
                 if (response.size() > 0) {
                     products = response;
                     setAdapter();
@@ -151,11 +153,13 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
 
             @Override
             public void onRequestTimout() {
+                hideProgress();
                 showMessage("Error", getString(R.string.timeout_message), Constants.MessageType.TIME_OUT);
             }
 
             @Override
             public void onRequestFail(ServiceError error) {
+                hideProgress();
                 String errorMessage = error.getErrorMessage();
                 if (errorMessage == null || errorMessage.equals("")) {
                     errorMessage = getString(R.string.server_error);

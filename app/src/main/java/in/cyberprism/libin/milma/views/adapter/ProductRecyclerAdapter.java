@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -56,7 +58,7 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
             holder.imageView.setImageDrawable(d);
             ims.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Picasso.with(mContext).load(product.getImage()).placeholder(R.mipmap.no_image).into(holder.imageView);
         }
 
         if (product.isSelected()) {

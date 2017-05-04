@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
@@ -86,7 +88,7 @@ public class ReviewProductAdapter extends RecyclerView.Adapter<ReviewProductAdap
             holder.imageViewIcon.setImageDrawable(d);
             ims.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Picasso.with(mContext).load(product.getImage()).placeholder(R.mipmap.no_image).into(holder.imageViewIcon);
         }
 
         if (position % 2 != 0) {

@@ -50,14 +50,19 @@ public class LoginActivity extends BaseActivity {
                 milmaFacade.doLogin(username, password, new ServiceCallback<LoginResponse>() {
                     @Override
                     public void onResponse(LoginResponse response) {
-                        User user = new User();
-                        user.setName(response.getResponse().getName());
-                        user.setType(response.getResponse().getType());
-                        user.setUserId(response.getResponse().getUserId());
-                        Config.getInstance().setUser(user);
 
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intent);
+                        if (response.getStatus() == Constants.Status.SUCCESS) {
+                            User user = new User();
+                            user.setName(response.getResponse().getName());
+                            user.setType(response.getResponse().getType());
+                            user.setUserId(response.getResponse().getUserId());
+                            Config.getInstance().setUser(user);
+
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                        } else {
+                            showMessage("Error", response.getMessage(), Constants.MessageType.ERROR);
+                        }
                     }
 
                     @Override
