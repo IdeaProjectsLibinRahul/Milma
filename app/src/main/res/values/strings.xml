@@ -24,4 +24,5 @@
     <string name="no_data_available">No data available</string>
     <string name="fetch_data_msg">Fetching data</string>
     <string name="please_wait">please wait</string>
+    <string name="in_cart_message">Already in cart</string>
 </resources>

@@ -52,6 +52,7 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
     private CountCallback countCallback;
     private TextView errorText;
     private MilmaFacade facade;
+    private boolean editMode = false;
 
     @Nullable
     @Override
@@ -71,6 +72,10 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
     public void onMessageEvent(SelectedItemsRequestEvent event) {
 //        showQuantityView();
         showReviewView();
+    }
+
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
     }
 
     public void setCountCallback(CountCallback countCallback) {
@@ -120,7 +125,7 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
     }
 
     private void setAdapter() {
-        adapter = new ProductsAdapter(products, getActivity());
+        adapter = new ProductsAdapter(products, getActivity(), editMode);
         listViewItems.setAdapter(adapter);
         listViewItems.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousGroup = -1;

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -22,6 +23,7 @@ import java.util.List;
 import in.cyberprism.libin.milma.R;
 import in.cyberprism.libin.milma.events.DataSetChangeEvent;
 import in.cyberprism.libin.milma.events.ItemSelectEvent;
+import in.cyberprism.libin.milma.views.fragments.HomeFragment;
 import in.cyberprism.libin.milma.views.models.Product;
 
 /**
@@ -33,10 +35,12 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
     private String key;
     private List<Product> products;
     private Context mContext;
+    private boolean editMode;
 
-    public ProductRecyclerAdapter(String key, List<Product> products) {
+    public ProductRecyclerAdapter(String key, List<Product> products, boolean editMode) {
         this.key = key;
         this.products = products;
+        this.editMode = editMode;
     }
 
     @Override
@@ -69,11 +73,23 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean selected = product.isSelected();
-                product.setSelected(!selected);
-                notifyDataSetChanged();
+                boolean present = false;
+                if (HomeFragment.selectedProducts != null) {
+                    for (Product product1 : HomeFragment.selectedProducts) {
+                        if (product.getItemCode() == product1.getItemCode()) {
+                            present = true;
+                        }
+                    }
+                }
+                if (editMode && present) {
+                    Toast.makeText(mContext, R.string.in_cart_message, Toast.LENGTH_SHORT).show();
+                } else {
+                    boolean selected = product.isSelected();
+                    product.setSelected(!selected);
+                    notifyDataSetChanged();
 
-                publishCount(product, true);
+                    publishCount(product, true);
+                }
             }
         });
     }

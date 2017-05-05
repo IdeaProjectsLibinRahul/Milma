@@ -209,6 +209,7 @@ public class ReviewFragment extends BaseFragment {
 
     private void addNewItems() {
         HomeFragment homeFragment = new HomeFragment();
+        homeFragment.setEditMode(true);
         changeMainView(homeFragment);
     }
 }

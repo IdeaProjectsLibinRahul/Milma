@@ -25,11 +25,13 @@ public class ProductsAdapter extends BaseExpandableListAdapter {
     private HashMap<String, List<Product>> products;
     private List<String> heading;
     private Context mContext;
+    private boolean editMode;
 
-    public ProductsAdapter(HashMap<String, List<Product>> products, Context mContext) {
+    public ProductsAdapter(HashMap<String, List<Product>> products, Context mContext, boolean editMode) {
         this.products = products;
         this.mContext = mContext;
         this.heading = new ArrayList<>(products.keySet());
+        this.editMode = editMode;
     }
 
     @Override
@@ -95,7 +97,7 @@ public class ProductsAdapter extends BaseExpandableListAdapter {
         }
 
         RecyclerView recyclerView = (RecyclerView) convertView;
-        ProductRecyclerAdapter adaper = new ProductRecyclerAdapter(key, childList);
+        ProductRecyclerAdapter adaper = new ProductRecyclerAdapter(key, childList, editMode);
         GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adaper);
