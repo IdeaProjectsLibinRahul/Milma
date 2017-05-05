@@ -44,4 +44,12 @@ public class Constants {
         @SerializedName("1")
         CATEGORY;
     }
+
+    public interface Tag {
+        String HOME = "HOME";
+        String REVIEW = "REVIEW";
+        String BUY = "BUY";
+        String HISTORY = "HISTORY";
+        String ORDER = "ORDER";
+    }
 }

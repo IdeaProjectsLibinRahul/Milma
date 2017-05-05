@@ -108,7 +108,7 @@ public class MilmaServiceImpl implements MilmaService {
         orderRequest.setItems(items);
 
 
-        final NetworkRequest<OrderResponse> request = new NetworkRequestImpl<>(orderRequest, ServiceURLs.HOME, OrderResponse.class);
+        final NetworkRequest<OrderResponse> request = new NetworkRequestImpl<>(orderRequest, ServiceURLs.ORDER, OrderResponse.class);
         request.request(Request.Method.POST, new NetworkCallback<OrderResponse>() {
             @Override
             public void onSuccess(OrderResponse response) {

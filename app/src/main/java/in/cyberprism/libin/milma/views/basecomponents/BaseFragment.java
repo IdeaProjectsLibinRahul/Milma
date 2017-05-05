@@ -41,6 +41,12 @@ public abstract class BaseFragment extends Fragment {
         transaction.replace(resId, fragment).commit();
     }
 
+    protected void changeMainView(Fragment fragment, String tag) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container, fragment, tag).addToBackStack(null).commit();
+    }
+
     protected void changeMainView(Fragment fragment) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

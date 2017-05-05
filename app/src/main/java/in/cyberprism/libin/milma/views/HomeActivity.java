@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.HashMap;
 
 import in.cyberprism.libin.milma.R;
+import in.cyberprism.libin.milma.configurations.Constants;
 import in.cyberprism.libin.milma.events.ItemSelectEvent;
 import in.cyberprism.libin.milma.events.SelectedItemsRequestEvent;
 import in.cyberprism.libin.milma.views.dialogs.QuantityDialog;
@@ -41,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Coun
 
         HomeFragment fragment = new HomeFragment();
         fragment.setCountCallback(this);
-        changeMainView(fragment);
+        changeMainView(fragment, Constants.Tag.HOME);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -96,10 +97,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Coun
         };
     }
 
-    private void changeMainView(Fragment fragment) {
+    private void changeMainView(Fragment fragment, String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.container, fragment).commit();
+        transaction.replace(R.id.container, fragment, tag).commit();
     }
 
     @Override
@@ -117,5 +118,13 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Coun
     @Override
     public void resetCount() {
         itemCount = new HashMap<>();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (HomeFragment.selectedProducts != null) {
+            HomeFragment.selectedProducts.clear();
+        }
+        super.onBackPressed();
     }
 }

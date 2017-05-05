@@ -43,6 +43,7 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
 
     public static final String SELECTED_PRODUCTS = "SELECTED_PRODUCTS";
     public static final String SORT_DIALOG = "SORT_DIALOG";
+    public static List<Product> selectedProducts;
     private final String TAG = getClass().getName();
     private HashMap<String, List<Product>> products;
     private ExpandableListView listViewItems;
@@ -50,7 +51,6 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
     private ProductsAdapter adapter;
     private CountCallback countCallback;
     private TextView errorText;
-
     private MilmaFacade facade;
 
     @Nullable
@@ -84,7 +84,7 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
         bundle.putSerializable(ADDED_PRODUCTS, (Serializable) selectedProducts);
         ReviewFragment fragment = new ReviewFragment();
         fragment.setArguments(bundle);
-        changeMainView(fragment);
+        changeMainView(fragment, Constants.Tag.REVIEW);
     }
 
     private void showQuantityView() {
@@ -93,12 +93,14 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
         Bundle bundle = new Bundle();
         bundle.putSerializable(SELECTED_PRODUCTS, (Serializable) selectedProducts);
         fragment.setArguments(bundle);
-        changeMainView(fragment);
+        changeMainView(fragment, Constants.Tag.BUY);
     }
 
     @NonNull
     private List<Product> getSelectedProducts() {
-        List<Product> selectedProducts = new ArrayList<>();
+        if (selectedProducts == null) {
+            selectedProducts = new ArrayList<>();
+        }
         for (String key : products.keySet()) {
             List<Product> productList = products.get(key);
             for (Product product : productList) {
@@ -192,7 +194,7 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
             sortDialog.show(getChildFragmentManager(), SORT_DIALOG);
         } else if (itemId == R.id.item_history) {
             HistoryFragment historyFragment = new HistoryFragment();
-            changeMainView(historyFragment);
+            changeMainView(historyFragment, Constants.Tag.HISTORY);
         }
 
         return super.onOptionsItemSelected(item);

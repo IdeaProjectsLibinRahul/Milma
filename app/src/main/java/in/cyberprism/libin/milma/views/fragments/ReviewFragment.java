@@ -2,10 +2,14 @@ package in.cyberprism.libin.milma.views.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -52,6 +56,8 @@ public class ReviewFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_review, container, false);
+
+        setHasOptionsMenu(true);
 
         parseBundle();
         initComponents();
@@ -108,8 +114,13 @@ public class ReviewFragment extends BaseFragment {
                 facade.orderItems(items, new ServiceCallback<OrderResponse>() {
                     @Override
                     public void onResponse(OrderResponse response) {
+                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                        for (int i = 1; i < fm.getBackStackEntryCount(); ++i) {
+                            fm.popBackStack();
+                        }
+
                         OrderInfoFragment fragment = new OrderInfoFragment();
-                        changeMainView(fragment);
+                        changeMainView(fragment, Constants.Tag.ORDER);
                     }
 
                     @Override
@@ -179,5 +190,25 @@ public class ReviewFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EditDoneEvent event) {
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.review, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.item_add) {
+            addNewItems();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addNewItems() {
+        HomeFragment homeFragment = new HomeFragment();
+        changeMainView(homeFragment);
     }
 }
