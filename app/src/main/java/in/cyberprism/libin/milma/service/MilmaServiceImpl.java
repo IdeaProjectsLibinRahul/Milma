@@ -14,9 +14,11 @@ import in.cyberprism.libin.milma.network.constants.ServiceURLs;
 import in.cyberprism.libin.milma.network.handlers.NetworkCallback;
 import in.cyberprism.libin.milma.service.handlers.ServiceCallback;
 import in.cyberprism.libin.milma.service.mappers.ItemResponseMapper;
+import in.cyberprism.libin.milma.service.requests.HistoryRequest;
 import in.cyberprism.libin.milma.service.requests.ItemRequest;
 import in.cyberprism.libin.milma.service.requests.LoginRequest;
 import in.cyberprism.libin.milma.service.requests.OrderRequest;
+import in.cyberprism.libin.milma.service.responses.HistoryResponse;
 import in.cyberprism.libin.milma.service.responses.ItemsResponse;
 import in.cyberprism.libin.milma.service.responses.LoginResponse;
 import in.cyberprism.libin.milma.service.responses.OrderResponse;
@@ -112,6 +114,40 @@ public class MilmaServiceImpl implements MilmaService {
         request.request(Request.Method.POST, new NetworkCallback<OrderResponse>() {
             @Override
             public void onSuccess(OrderResponse response) {
+                if (response != null) {
+                    callback.onResponse(response);
+                } else {
+                    ServiceError error = new ServiceError();
+                    error.setErrorMessage("Response null");
+
+                    callback.onRequestFail(error);
+                }
+            }
+
+            @Override
+            public void onTimeout() {
+                callback.onRequestTimout();
+            }
+
+            @Override
+            public void onFail(ServiceError error) {
+                callback.onRequestFail(error);
+            }
+        });
+    }
+
+    @Override
+    public void getPurchaseHistory(final ServiceCallback<HistoryResponse> callback) {
+        User user = Config.getInstance().getUser();
+
+        HistoryRequest historyRequest = new HistoryRequest();
+        historyRequest.setUserId(user.getUserId());
+
+
+        final NetworkRequest<HistoryResponse> request = new NetworkRequestImpl<>(historyRequest, ServiceURLs.HISTORY, HistoryResponse.class);
+        request.request(Request.Method.POST, new NetworkCallback<HistoryResponse>() {
+            @Override
+            public void onSuccess(HistoryResponse response) {
                 if (response != null) {
                     callback.onResponse(response);
                 } else {

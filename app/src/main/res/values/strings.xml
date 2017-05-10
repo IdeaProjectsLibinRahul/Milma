@@ -25,4 +25,6 @@
     <string name="fetch_data_msg">Fetching data</string>
     <string name="please_wait">please wait</string>
     <string name="in_cart_message">Already in cart</string>
+    <string name="price">Price</string>
+    <string name="purchase_quantity">Purchase Quantity</string>
 </resources>
