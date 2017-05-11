@@ -70,4 +70,9 @@
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
+    <style name="HistoryText">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

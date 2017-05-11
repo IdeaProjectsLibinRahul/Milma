@@ -1,9 +1,13 @@
 package in.cyberprism.libin.milma.views.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.zakariya.stickyheaders.SectioningAdapter;
 
@@ -20,6 +24,7 @@ import in.cyberprism.libin.milma.service.responses.purchase.PurchaseItem;
 public class HistoryAdapter extends SectioningAdapter {
 
     private ArrayList<PurchaseHistory> data;
+    private Context mContext;
 
     public HistoryAdapter(ArrayList<PurchaseHistory> data) {
         this.data = data;
@@ -59,6 +64,7 @@ public class HistoryAdapter extends SectioningAdapter {
 
     @Override
     public SectioningAdapter.HeaderViewHolder onCreateHeaderViewHolder(ViewGroup parent, int headerUserType) {
+        mContext = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.layout_purchase_header, parent, false);
         return new HeaderViewHolder(view);
@@ -71,7 +77,8 @@ public class HistoryAdapter extends SectioningAdapter {
         ItemViewHolder itemViewHolder = (ItemViewHolder) viewHolder;
         itemViewHolder.textViewName.setText(item.getItemName());
         itemViewHolder.textViewQuantity.setText(item.getItemQuantity());
-        itemViewHolder.textViewPrice.setText(item.getItemPrice());
+        itemViewHolder.textViewPrice.setText(mContext.getString(R.string.format_price, item.getItemPrice()));
+        Picasso.with(mContext).load(item.getItemImage()).into(itemViewHolder.imageView);
     }
 
     @Override
@@ -79,7 +86,7 @@ public class HistoryAdapter extends SectioningAdapter {
         PurchaseHistory history = data.get(sectionIndex);
         HeaderViewHolder headerViewHolder = (HeaderViewHolder) viewHolder;
         headerViewHolder.textViewDate.setText(history.getPurchaseDate());
-        headerViewHolder.textViewPrice.setText(history.getTotalAmount());
+        headerViewHolder.textViewPrice.setText(mContext.getString(R.string.format_price, history.getTotalAmount()));
     }
 
     private class ItemViewHolder extends SectioningAdapter.ItemViewHolder {
@@ -87,6 +94,7 @@ public class HistoryAdapter extends SectioningAdapter {
         private TextView textViewName;
         private TextView textViewQuantity;
         private TextView textViewPrice;
+        private ImageView imageView;
 
         ItemViewHolder(View itemView) {
             super(itemView);
@@ -94,6 +102,7 @@ public class HistoryAdapter extends SectioningAdapter {
             textViewName = (TextView) itemView.findViewById(R.id.textViewItemTitle);
             textViewPrice = (TextView) itemView.findViewById(R.id.textViewItemPrice);
             textViewQuantity = (TextView) itemView.findViewById(R.id.textViewItemQuantity);
+            imageView = (ImageView) itemView.findViewById(R.id.imageViewItem);
         }
     }
 

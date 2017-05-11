@@ -7,8 +7,10 @@
     <color name="itemBackground">#88000000</color>
     <color name="layoutInterBackground">#66bebebe</color>
     <color name="order_info_background">#363636</color>
+    <color name="history_header">#1290c4</color>
 
     <color name="message_error">#f7f23c3c</color>
     <color name="message_success">#f726ff05</color>
     <color name="message_default">#33000000</color>
+    <color name="historyBackground">#AA000000</color>
 </resources>

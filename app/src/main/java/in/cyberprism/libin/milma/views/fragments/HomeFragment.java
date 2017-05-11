@@ -191,9 +191,10 @@ public class HomeFragment extends BaseFragment implements SortDialog.SortCallbac
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
 
-        if (itemId == R.id.item_mock) {
-            getData();
-        } else if (itemId == R.id.item_order) {
+//        if (itemId == R.id.item_mock) {
+//            getData();
+//        } else
+            if (itemId == R.id.item_order) {
             SortDialog sortDialog = new SortDialog();
             sortDialog.setCallback(this);
             sortDialog.show(getChildFragmentManager(), SORT_DIALOG);

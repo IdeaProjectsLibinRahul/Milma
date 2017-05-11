@@ -10,6 +10,7 @@
     <string name="total">Total</string>
     <string name="item_code">Code : %d</string>
     <string name="review_price">₹ %.2f</string>
+    <string name="format_price">₹ %s</string>
     <string name="order_info">Your order has been placed</string>
     <string name="order_delivery">Order will be delivered in 2 days</string>
     <string name="timeout_message">Request TimeOut</string>
