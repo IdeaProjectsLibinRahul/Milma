@@ -10,6 +10,7 @@ public class PurchaseHistory {
     private int purchaseId;
     private String purchaseDate;
     private String totalAmount;
+    private String approvalStatus;
     private ArrayList<PurchaseItem> items;
 
     public int getPurchaseId() {
@@ -34,6 +35,14 @@ public class PurchaseHistory {
 
     public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getApprovalStatus() {
+        return approvalStatus;
+    }
+
+    public void setApprovalStatus(String approvalStatus) {
+        this.approvalStatus = approvalStatus;
     }
 
     public ArrayList<PurchaseItem> getItems() {

@@ -24,7 +24,7 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <TextView
+        <in.cyberprism.libin.milma.views.widgets.MLTextView
             android:id="@+id/textViewItemTitle"
             style="@style/HistoryText"
             android:layout_width="match_parent"

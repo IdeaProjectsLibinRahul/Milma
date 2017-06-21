@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Coun
             }
             if (count > 0) {
                 textViewSelectedCount.setText(count + "");
-                textViewSelectedCount.setVisibility(View.VISIBLE);
+//                textViewSelectedCount.setVisibility(View.VISIBLE);
                 imageViewNext.setVisibility(View.VISIBLE);
             } else {
                 textViewSelectedCount.setVisibility(View.GONE);

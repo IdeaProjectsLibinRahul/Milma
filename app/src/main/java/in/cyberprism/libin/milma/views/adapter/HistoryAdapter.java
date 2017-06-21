@@ -85,7 +85,7 @@ public class HistoryAdapter extends SectioningAdapter {
     public void onBindHeaderViewHolder(SectioningAdapter.HeaderViewHolder viewHolder, int sectionIndex, int headerUserType) {
         PurchaseHistory history = data.get(sectionIndex);
         HeaderViewHolder headerViewHolder = (HeaderViewHolder) viewHolder;
-        headerViewHolder.textViewDate.setText(history.getPurchaseDate());
+        headerViewHolder.textViewDate.setText(history.getApprovalStatus() + " | " + history.getPurchaseDate());
         headerViewHolder.textViewPrice.setText(mContext.getString(R.string.format_price, history.getTotalAmount()));
     }
 

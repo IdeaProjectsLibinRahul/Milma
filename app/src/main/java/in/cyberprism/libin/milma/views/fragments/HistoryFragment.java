@@ -1,6 +1,7 @@
 package in.cyberprism.libin.milma.views.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -59,7 +60,8 @@ public class HistoryFragment extends BaseFragment {
         facade.getPurchaseHistory(new ServiceCallback<HistoryResponse>() {
             @Override
             public void onResponse(HistoryResponse response) {
-                setAdapter(response.getResponse());
+                ArrayList<PurchaseHistory> data = getPurchaseHistories(response);
+                setAdapter(data);
             }
 
             @Override
@@ -72,5 +74,35 @@ public class HistoryFragment extends BaseFragment {
                 Log.e(TAG, "onRequestFail: " + error.getErrorMessage());
             }
         });
+    }
+
+    @NonNull
+    private ArrayList<PurchaseHistory> getPurchaseHistories(HistoryResponse response) {
+        ArrayList<PurchaseHistory> approved = response.getResponse().getApproved();
+        ArrayList<PurchaseHistory> waitingApproval = response.getResponse().getWaitingapproval();
+        ArrayList<PurchaseHistory> delivered = response.getResponse().getDelivered();
+
+        ArrayList<PurchaseHistory> data = new ArrayList<>();
+        if (approved != null) {
+            for (PurchaseHistory history : approved) {
+                history.setApprovalStatus("Approved");
+                data.add(history);
+            }
+        }
+
+        if (waitingApproval != null) {
+            for (PurchaseHistory history : waitingApproval) {
+                history.setApprovalStatus("Waiting Approval");
+                data.add(history);
+            }
+        }
+
+        if (delivered != null) {
+            for (PurchaseHistory history : delivered) {
+                history.setApprovalStatus("Delivered");
+                data.add(history);
+            }
+        }
+        return data;
     }
 }

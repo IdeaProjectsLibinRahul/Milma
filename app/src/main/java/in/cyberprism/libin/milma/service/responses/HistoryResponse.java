@@ -1,22 +1,20 @@
 package in.cyberprism.libin.milma.service.responses;
 
-import java.util.ArrayList;
-
 import in.cyberprism.libin.milma.service.responses.base.BaseResponse;
-import in.cyberprism.libin.milma.service.responses.purchase.PurchaseHistory;
+import in.cyberprism.libin.milma.service.responses.purchase.PurchaseApproval;
 
 /**
  * Created by libin on 09/05/17.
  */
 
 public class HistoryResponse extends BaseResponse {
-    private ArrayList<PurchaseHistory> response;
+    private PurchaseApproval response;
 
-    public ArrayList<PurchaseHistory> getResponse() {
+    public PurchaseApproval getResponse() {
         return response;
     }
 
-    public void setResponse(ArrayList<PurchaseHistory> response) {
+    public void setResponse(PurchaseApproval response) {
         this.response = response;
     }
 
